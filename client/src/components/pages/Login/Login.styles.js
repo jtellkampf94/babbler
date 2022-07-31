@@ -35,6 +35,7 @@ export const FormHeader = styled.div`
 `;
 
 export const Header = styled.h1`
+  font-family: "ChirpExtendedHeavy";
   margin-top: 15px;
   font-size: 23px;
 `;

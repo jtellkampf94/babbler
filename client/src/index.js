@@ -5,8 +5,14 @@ import { createGlobalStyle } from "styled-components";
 import { Provider } from "react-redux";
 
 import store from "./redux/store";
+import Font from "./assets/fonts/chirp-extended-heavy-web.woff";
 
 const GlobalStyle = createGlobalStyle`
+  @font-face { 
+    font-family: 'ChirpExtendedHeavy';
+    src: url(${Font}) format('woff');
+    font-weight: 800; 
+  }
   * {
     font-family: 'Roboto';
     box-sizing: border-box;

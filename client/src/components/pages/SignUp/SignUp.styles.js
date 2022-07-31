@@ -14,6 +14,7 @@ export const ContentHeader = styled.div`
 
 export const Header = styled.h1`
   font-size: 23px;
+  font-family: "ChirpExtendedHeavy";
 `;
 
 export const Form = styled.form`
