@@ -3,8 +3,8 @@ import authActionTypes from "../auth/auth.types";
 
 const INITIAL_STATE = {
   error: {},
-  posts: [],
-  post: {}
+  posts: null,
+  post: {},
 };
 
 const postReducer = (state = INITIAL_STATE, action) => {

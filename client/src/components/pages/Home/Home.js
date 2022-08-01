@@ -6,12 +6,12 @@ import Main from "../../layout/Main/Main";
 import Post from "../../shared/Post/Post";
 import {
   selectCurrentUser,
-  selectUserError
+  selectUserError,
 } from "../../../redux/user/user.selectors";
 import { selectPosts } from "../../../redux/post/post.selectors";
 import {
   getPostsFeedStart,
-  clearPosts
+  clearPosts,
 } from "../../../redux/post/post.actions";
 import theme from "../../../config/theme";
 import useSpinner from "../../../hooks/useSpinner";
@@ -31,8 +31,10 @@ const Home = ({ user, posts, getFeed, clearPosts, error }) => {
       title="Home"
       avatarUrl={user.profilePictureUrl ? user.profilePictureUrl : null}
     >
-      {posts.length > 0 ? (
-        posts.map(post => (
+      {posts === null ? (
+        <React.Fragment>{spinner}</React.Fragment>
+      ) : posts.length > 0 ? (
+        posts.map((post) => (
           <Post
             allowHover
             postId={post._id}
@@ -54,9 +56,7 @@ const Home = ({ user, posts, getFeed, clearPosts, error }) => {
             deletable={post.postedBy._id === user._id ? true : false}
           />
         ))
-      ) : (
-        <React.Fragment>{spinner}</React.Fragment>
-      )}
+      ) : null}
     </Main>
   );
 };
@@ -64,12 +64,12 @@ const Home = ({ user, posts, getFeed, clearPosts, error }) => {
 const mapStateToProps = createStructuredSelector({
   user: selectCurrentUser,
   error: selectUserError,
-  posts: selectPosts
+  posts: selectPosts,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getFeed: () => dispatch(getPostsFeedStart()),
-  clearPosts: () => dispatch(clearPosts())
+  clearPosts: () => dispatch(clearPosts()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
