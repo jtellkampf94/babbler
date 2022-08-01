@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const compress = require("compression");
 const cors = require("cors");
+const path = require("path");
 const userRoutes = require("./routes/user.routes");
 const uploadRoutes = require("./routes/upload.routes");
 const authRoutes = require("./routes/auth.routes");
@@ -20,6 +21,18 @@ app.use("/api", userRoutes);
 app.use("/api", uploadRoutes);
 app.use("/api", authRoutes);
 app.use("/api", postRoutes);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/client/build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("Api running");
+  });
+}
 
 app.use((req, res, next) => {
   const error = new Error("Not Found");
